@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-TARGET_USER=batman
+TARGET_USER=root
 source .devcontainer/.host/.env
 
 # override display flag for mac hosts
@@ -35,4 +35,6 @@ fi
 # that were running as root and therefore had their caches written as root
 sudo chown -R $TARGET_USER: /tmp/scons_cache
 sudo chown -R $TARGET_USER: /tmp/comma_download_cache
-sudo chown -R $TARGET_USER: /home/batman/.comma
+sudo chown -R $TARGET_USER: /home/root/.comma
+
+

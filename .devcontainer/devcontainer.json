@@ -16,9 +16,9 @@
   "runArgs": [
     "--volume=/dev:/dev",
     "--volume=/tmp/.X11-unix:/tmp/.X11-unix",
-    "--volume=${localWorkspaceFolder}/.devcontainer/.host/.Xauthority:/home/batman/.Xauthority",
-    "--volume=${localEnv:HOME}/.comma:/home/batman/.comma",
-    "--volume=${localEnv:HOME}/.azure:/home/batman/.azure",
+    "--volume=${localWorkspaceFolder}/.devcontainer/.host/.Xauthority:/home/root/.Xauthority",
+    "--volume=${localEnv:HOME}/.comma:/home/root/.comma",
+    "--volume=${localEnv:HOME}/.azure:/home/root/.azure",
     "--volume=/tmp/comma_download_cache:/tmp/comma_download_cache",
     "--shm-size=1G",
     "--add-host=host.docker.internal:host-gateway", // required to use host.docker.internal on linux
@@ -29,13 +29,13 @@
       "installZsh": false,
       "installOhMyZsh": false,
       "upgradePackages": false,
-      "username": "batman"
+      "username": "root"
     },
     "ghcr.io/devcontainers-contrib/features/gh-cli:1": {},
     "ghcr.io/devcontainers/features/azure-cli:1": {}
   },
-  "containerUser": "batman",
-  "remoteUser": "batman",
+  "containerUser": "root",
+  "remoteUser": "root",
   "customizations": {
     "vscode": {
       "extensions": [
