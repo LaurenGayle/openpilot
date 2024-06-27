@@ -1,6 +1,8 @@
 {
   "name": "openpilot devcontainer",
-  "image": "ghcr.io/commaai/openpilot-base",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
   "postCreateCommand": ".devcontainer/container_post_create.sh",
   "postStartCommand": ".devcontainer/container_post_start.sh",
   "initializeCommand": [".devcontainer/host_setup"],
@@ -47,5 +49,10 @@
   },
   "mounts": [
     "type=volume,source=scons_cache,target=/tmp/scons_cache"
-  ]
+  ],
+  "portsAttributes": {
+    "5900": {
+      "label": "VNC"
+    }
+  }
 }

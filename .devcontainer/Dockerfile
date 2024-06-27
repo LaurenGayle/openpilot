@@ -7,6 +7,7 @@ RUN pip install ipython jupyter jupyterlab
 RUN apt-get update \
  && export DEBIAN_FRONTEND=noninteractive \
  && echo yes | apt-get install -y \
+      dbus-x11 \
       supervisor \
       tigervnc-standalone-server \
       xfce4 \
@@ -36,3 +37,5 @@ USER root
 RUN cd $HOME && \
     curl -O https://raw.githubusercontent.com/commaai/agnos-builder/master/userspace/home/.tmux.conf && \
     curl -O https://raw.githubusercontent.com/commaai/agnos-builder/master/userspace/home/.vimrc
+
+COPY rootfs /
