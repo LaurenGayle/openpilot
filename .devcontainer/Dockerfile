@@ -1,7 +1,7 @@
-FROM ghcr.io/commaai/openpilot-base:6f10b8a20989031d4cc04e8b8ce38eaea4a4824e
+FROM ghcr.io/commaai/openpilot-base:579b131a6efe67463d5b2d06abe743302c9cdc08
 
 RUN apt update && apt install -y vim net-tools usbutils htop ripgrep tmux wget mesa-utils xvfb libxtst6 libxv1 libglu1-mesa gdb bash-completion python3-pip
-RUN pip install ipython jupyter jupyterlab
+RUN pip install --break-system-packages ipython jupyter jupyterlab
 
 # install vncserver
 RUN apt-get update \
@@ -24,6 +24,16 @@ RUN apt-get update \
 ENV TINI_VERSION v0.9.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /bin/tini
 RUN chmod +x /bin/tini
+
+#install x2go server
+RUN apt-get update \
+    && apt-get install -y software-properties-common \
+    && add-apt-repository -y ppa:x2go/stable \
+    && apt-get update \
+    && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get install -y \
+         x2goserver \
+         x2goserver-xsession
 
 RUN cd /tmp && \
     ARCH=$(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/) && \
