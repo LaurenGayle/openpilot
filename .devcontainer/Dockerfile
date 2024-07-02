@@ -1,6 +1,6 @@
-FROM ghcr.io/commaai/openpilot-base:latest
+FROM ghcr.io/commaai/openpilot-base:6f10b8a20989031d4cc04e8b8ce38eaea4a4824e
 
-RUN apt update && apt install -y vim net-tools usbutils htop ripgrep tmux wget mesa-utils xvfb libxtst6 libxv1 libglu1-mesa gdb bash-completion
+RUN apt update && apt install -y vim net-tools usbutils htop ripgrep tmux wget mesa-utils xvfb libxtst6 libxv1 libglu1-mesa gdb bash-completion python3-pip
 RUN pip install ipython jupyter jupyterlab
 
 # install vncserver
