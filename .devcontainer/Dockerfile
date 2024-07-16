@@ -25,22 +25,22 @@ ENV TINI_VERSION v0.9.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /bin/tini
 RUN chmod +x /bin/tini
 
-#install x2go server
-# RUN apt-get update \
-#     && apt-get install -y software-properties-common \
-#     && add-apt-repository -y ppa:x2go/stable \
-#     && apt-get update \
-#     && export DEBIAN_FRONTEND=noninteractive \
-#     && apt-get install -y \
-#          x2goserver \
-#          x2goserver-xsession \
-#          openssh-server
+install x2go server
+RUN apt-get update \
+    && apt-get install -y software-properties-common \
+    && add-apt-repository -y ppa:x2go/stable \
+    && apt-get update \
+    && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get install -y \
+         x2goserver \
+         x2goserver-xsession \
+         openssh-server
 
-# RUN useradd -m -U user
-# RUN mkdir /var/run/sshd
+RUN useradd -m -U user
+RUN mkdir /var/run/sshd
 
-# EXPOSE 22
-# CMD ["/usr/sbin/sshd","-D"]
+EXPOSE 22
+CMD ["/usr/sbin/sshd","-D"]
 
 # #x11 forwarding
 # RUN apt update \
