@@ -25,7 +25,7 @@ ENV TINI_VERSION v0.9.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /bin/tini
 RUN chmod +x /bin/tini
 
-install x2go server
+#install x2go server
 RUN apt-get update \
     && apt-get install -y software-properties-common \
     && add-apt-repository -y ppa:x2go/stable \
@@ -39,26 +39,8 @@ RUN apt-get update \
 RUN useradd -m -U user
 RUN mkdir /var/run/sshd
 
-EXPOSE 22
+#EXPOSE 22
 CMD ["/usr/sbin/sshd","-D"]
-
-# #x11 forwarding
-# RUN apt update \
-#     && apt install -y firefox \
-#                       openssh-server \
-#                       xauth \
-#     && mkdir /var/run/sshd \
-#     && mkdir /root/.ssh \
-#     && chmod 700 /root/.ssh \
-#     && ssh-keygen -A \
-#     && sed -i "s/^.*PasswordAuthentication.*$/PasswordAuthentication no/" /etc/ssh/sshd_config \
-#     && sed -i "s/^.*X11Forwarding.*$/X11Forwarding yes/" /etc/ssh/sshd_config \
-#     && sed -i "s/^.*X11UseLocalhost.*$/X11UseLocalhost no/" /etc/ssh/sshd_config \
-#     && grep "^X11UseLocalhost" /etc/ssh/sshd_config || echo "X11UseLocalhost no" >> /etc/ssh/sshd_config
-
-# RUN echo "YOUR_PUB_KEY_HERE" >> /root/.ssh/authorized_keys
-
-# ENTRYPOINT ["sh", "-c", "/usr/sbin/sshd && tail -f /dev/null"]
 
 RUN cd /tmp && \
     ARCH=$(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/) && \
