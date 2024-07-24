@@ -6,17 +6,18 @@
   "postCreateCommand": ".devcontainer/container_post_create.sh",
   "postStartCommand": ".devcontainer/container_post_start.sh",
   "initializeCommand": [".devcontainer/host_setup"],
+  "securityOpt": ["seccomp=unconfined"],
   "privileged": true,
   "containerEnv": {
-    "DISPLAY": "127.0.0.1:0",
-    "XAUTHORITY": "/home/root/.Xauthority",
+    //"DISPLAY": "${localEnv:DISPLAY}",
+    //"XAUTHORITY": "/home/root/.Xauthority",
     "PYTHONPATH": "${containerWorkspaceFolder}",
     "TERM": "xterm-256color",
     "force_color_prompt": "1"
   },
   "runArgs": [
     "--volume=/dev:/dev",
-    //"--volume=/tmp/.X11-unix:/tmp/.X11-unix",
+    "--volume=/tmp/.X11-unix:/tmp/.X11-unix",
     "--volume=${localWorkspaceFolder}/.devcontainer/.host/.Xauthority:/home/root/.Xauthority",
     "--volume=${localEnv:HOME}/.comma:/home/root/.comma",
     "--volume=${localEnv:HOME}/.azure:/home/root/.azure",
@@ -24,7 +25,7 @@
     "--shm-size=1G",
     "--add-host=host.docker.internal:host-gateway", // required to use host.docker.internal on linux
     "--publish=0.0.0.0:8070-8079:8070-8079",  // body ZMQ services
-    //"--runtime=nvidia",
+    "--runtime=nvidia",
     "--privileged"
   ],
   "features": {
@@ -52,7 +53,7 @@
   },
   "mounts": [
     "type=volume,source=scons_cache,target=/tmp/scons_cache",
-    "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached"
+    //"source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached"
   ],
   "portsAttributes": {
     "5900": {
