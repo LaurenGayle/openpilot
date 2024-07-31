@@ -1,7 +1,7 @@
 FROM ghcr.io/commaai/openpilot-base:579b131a6efe67463d5b2d06abe743302c9cdc08
 
 RUN apt update && apt install -y vim net-tools usbutils htop ripgrep tmux wget mesa-utils xvfb libxtst6 libxv1 libglu1-mesa gdb bash-completion python3-pip
-RUN pip install --break-system-packages ipython jupyter jupyterlab
+RUN pip install --break-system-packages ipython jupyter jupyterlab cuda-python torch
 
 # # install vncserver
 # RUN apt-get update \
@@ -48,6 +48,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get -y update
 RUN apt-get -y upgrade
 
+#setup xfce
 RUN apt-get install -y \
     xfce4 \
     xfce4-clipman-plugin \
@@ -58,7 +59,14 @@ RUN apt-get install -y \
     xfce4-terminal \
     xfce4-xkb-plugin
 
-    RUN apt-get install -y \
+#set up xrdp
+
+# RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb
+# RUN dpkg -i cuda-keyring_1.1-1_all.deb
+# RUN apt-get update
+# RUN apt-get -y install cuda-toolkit-12-5
+
+RUN apt-get install -y \
     sudo \
     wget \
     xorgxrdp \

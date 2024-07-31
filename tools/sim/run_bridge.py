@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import argparse
 
+import multiprocessing
 from typing import Any
 from multiprocessing import Queue
 
@@ -30,6 +31,8 @@ if __name__ == "__main__":
   args = parse_args()
 
   queue, simulator_process, simulator_bridge = create_bridge(args.dual_camera, args.high_quality)
+
+  multiprocessing.set_start_method('spawn', force=True)
 
   if args.joystick:
     # start input poll for joystick
