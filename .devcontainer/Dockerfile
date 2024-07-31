@@ -77,9 +77,9 @@ RUN apt-get install -y \
     apt autoremove -y && \
     rm -rf /var/cache/apt /var/lib/apt/lists
 
-COPY ./build/ubuntu-run.sh /usr/bin/
-RUN mv /usr/bin/ubuntu-run.sh /usr/bin/run.sh
-RUN chmod +x /usr/bin/run.sh
+# COPY ./build/ubuntu-run.sh /usr/bin/
+# RUN mv /usr/bin/ubuntu-run.sh /usr/bin/run.sh
+# RUN chmod +x /usr/bin/run.sh
 
 # https://github.com/danielguerra69/ubuntu-xrdp/blob/master/Dockerfile
 RUN mkdir -p /var/run/dbus && \
