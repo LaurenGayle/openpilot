@@ -1,6 +1,6 @@
 FROM ghcr.io/commaai/openpilot-base:579b131a6efe67463d5b2d06abe743302c9cdc08
 
-RUN apt update && apt install -y vim net-tools usbutils htop ripgrep tmux wget mesa-utils xvfb libxtst6 libxv1 libglu1-mesa gdb bash-completion python3-pip
+RUN apt update && apt install -y vim net-tools usbutils htop ripgrep tmux wget mesa-utils xvfb libxtst6 libxv1 libglu1-mesa gdb bash-completion python3-pip pciutils
 RUN pip install --break-system-packages ipython jupyter jupyterlab cuda-python torch
 
 # # install vncserver
@@ -43,54 +43,54 @@ RUN pip install --break-system-packages ipython jupyter jupyterlab cuda-python t
 # CMD ["/usr/sbin/sshd","-D"]
 
 
-#setup xrdp (https://github.com/danchitnis/container-xrdp)
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get -y update
-RUN apt-get -y upgrade
+# #setup xrdp (https://github.com/danchitnis/container-xrdp)
+# ENV DEBIAN_FRONTEND=noninteractive
+# RUN apt-get -y update
+# RUN apt-get -y upgrade
 
-#setup xfce
-RUN apt-get install -y \
-    xfce4 \
-    xfce4-clipman-plugin \
-    xfce4-cpugraph-plugin \
-    xfce4-netload-plugin \
-    xfce4-screenshooter \
-    xfce4-taskmanager \
-    xfce4-terminal \
-    xfce4-xkb-plugin
+# #setup xfce
+# RUN apt-get install -y \
+#     xfce4 \
+#     xfce4-clipman-plugin \
+#     xfce4-cpugraph-plugin \
+#     xfce4-netload-plugin \
+#     xfce4-screenshooter \
+#     xfce4-taskmanager \
+#     xfce4-terminal \
+#     xfce4-xkb-plugin
 
-#set up xrdp
+# #set up xrdp
 
-# RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb
-# RUN dpkg -i cuda-keyring_1.1-1_all.deb
-# RUN apt-get update
-# RUN apt-get -y install cuda-toolkit-12-5
+# # RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb
+# # RUN dpkg -i cuda-keyring_1.1-1_all.deb
+# # RUN apt-get update
+# # RUN apt-get -y install cuda-toolkit-12-5
 
-RUN apt-get install -y \
-    sudo \
-    wget \
-    xorgxrdp \
-    dbus-x11 \
-    dbus \
-    xrdp && \
-    apt remove -y light-locker xscreensaver && \
-    apt autoremove -y && \
-    rm -rf /var/cache/apt /var/lib/apt/lists
+# RUN apt-get install -y \
+#     sudo \
+#     wget \
+#     xorgxrdp \
+#     dbus-x11 \
+#     dbus \
+#     xrdp && \
+#     apt remove -y light-locker xscreensaver && \
+#     apt autoremove -y && \
+#     rm -rf /var/cache/apt /var/lib/apt/lists
 
-# COPY ./build/ubuntu-run.sh /usr/bin/
-# RUN mv /usr/bin/ubuntu-run.sh /usr/bin/run.sh
-# RUN chmod +x /usr/bin/run.sh
+# # COPY ./build/ubuntu-run.sh /usr/bin/
+# # RUN mv /usr/bin/ubuntu-run.sh /usr/bin/run.sh
+# # RUN chmod +x /usr/bin/run.sh
 
-# https://github.com/danielguerra69/ubuntu-xrdp/blob/master/Dockerfile
-RUN mkdir -p /var/run/dbus && \
-    cp /etc/X11/xrdp/xorg.conf /etc/X11 && \
-    sed -i "s/console/anybody/g" /etc/X11/Xwrapper.config && \
-    sed -i "s/xrdp\/xorg/xorg/g" /etc/xrdp/sesman.ini && \
-    echo "xfce4-session" >> /etc/skel/.Xsession
+# # https://github.com/danielguerra69/ubuntu-xrdp/blob/master/Dockerfile
+# RUN mkdir -p /var/run/dbus && \
+#     cp /etc/X11/xrdp/xorg.conf /etc/X11 && \
+#     sed -i "s/console/anybody/g" /etc/X11/Xwrapper.config && \
+#     sed -i "s/xrdp\/xorg/xorg/g" /etc/xrdp/sesman.ini && \
+#     echo "xfce4-session" >> /etc/skel/.Xsession
 
-RUN update-rc.d dbus defaults && \
-    service dbus restart && \
-    dbus-run-session xterm &
+# RUN update-rc.d dbus defaults && \
+#     service dbus restart && \
+#     dbus-run-session xterm &
 
 # create a password
 RUN echo "root:pass" | chpasswd

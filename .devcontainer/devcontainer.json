@@ -25,10 +25,10 @@
     "--shm-size=1G",
     "--add-host=host.docker.internal:host-gateway", // required to use host.docker.internal on linux
     "--publish=0.0.0.0:8070-8079:8070-8079",  // body ZMQ services
-    "--runtime=nvidia",
+    //"--runtime=nvidia",
     "--privileged",
-    "-e NVIDIA_VISIBLE_DEVICES=all",
-    "-e NVIDIA_DRIVER_CAPABILITIES=all"
+    // "-e NVIDIA_VISIBLE_DEVICES=all",
+    // "-e NVIDIA_DRIVER_CAPABILITIES=all"
   ],
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
